@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_project/cubit/cubit.dart';
+import 'package:new_project/screens/screens.dart';
 import 'package:new_project/widgets/custom_elevated_button.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -20,7 +23,7 @@ class HomeScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.black.withOpacity(0.6),
+                    Colors.black.withOpacity(0.3),
                     Colors.transparent,
                   ],
                   begin: Alignment.bottomCenter,
@@ -29,39 +32,74 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Column(
-                  children: [
-                    Center(
-                      child: SizedBox(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                BlocListener<NewsCubit, NewsState>(
+                  listener: (context, NewsState state) {
+                    if (state is NewsSuccessState) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const NewsScreen(),
+                        ),
+                      );
+                    }
+                  },
+                  child: Column(
+                    children: [
+                      Center(
+                        child: SizedBox(
                           width: double.infinity,
-                          child: CustomElevatedButton(
-                            buttonText: 'Latest News',
-                            onPressed: () {},
-                          )),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: SizedBox(
+                          child: BlocBuilder<NewsCubit, NewsState>(
+                            builder: (context, NewsState state) {
+                              if (state is NewsLoadingState &&
+                                  state.loadingButtonIndex == 0) {
+                                return const CircularProgressIndicator();
+                              } else {
+                                return CustomElevatedButton(
+                                  buttonText: 'Latest News',
+                                  onPressed: () async {
+                                    context.read<NewsCubit>().getNewsData(0);
+                                  },
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: SizedBox(
                           width: double.infinity,
-                          child: CustomElevatedButton(
-                            buttonText: 'Second to Latest News',
-                            onPressed: () {},
-                          )),
-                    ),
-                  ],
+                          child: BlocBuilder<NewsCubit, NewsState>(
+                            builder: (context, NewsState state) {
+                              if (state is NewsLoadingState &&
+                                  state.loadingButtonIndex == 1) {
+                                return const CircularProgressIndicator();
+                              } else {
+                                return CustomElevatedButton(
+                                  buttonText: 'Second to Latest News',
+                                  onPressed: () async {
+                                    context.read<NewsCubit>().getNewsData(1);
+                                  },
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

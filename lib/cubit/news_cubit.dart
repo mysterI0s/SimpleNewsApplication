@@ -8,10 +8,10 @@ class NewsCubit extends Cubit<NewsState> {
 
   ServerManager serverManager = ServerManager();
 
-  Future getNewsData() async {
-    emit(NewsLoadingState());
+  Future getNewsData(int index) async {
+    emit(NewsLoadingState(index));
     try {
-      NewsModel newsModel = await serverManager.getNews();
+      NewsModel newsModel = await serverManager.getNews(index);
       emit(NewsSuccessState(newsModel));
     } catch (e) {
       emit(NewsErrorState(e.toString()));
