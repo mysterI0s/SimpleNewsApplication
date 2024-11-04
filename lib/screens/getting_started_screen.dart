@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:new_project/screens/screens.dart';
+import 'package:new_project/widgets/custom_elevated_button.dart';
 
 class GettingStartedScreen extends StatelessWidget {
   const GettingStartedScreen({super.key});
@@ -34,52 +36,36 @@ class GettingStartedScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Center(
-                      child: Text(
-                        'Stay Informed\nfrom Day One',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    const Text(
+                      'Stay Informed\nfrom Day One',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Center(
-                      child: Text(
-                        'Discover the Latest News with our\nSeamless Onboarding Experience',
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.9),
-                          fontSize: 16,
-                        ),
+                    Text(
+                      'Discover the Latest News with our\nSeamless Onboarding Experience',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.9),
+                        fontSize: 16,
                       ),
                     ),
                     const SizedBox(height: 24),
                     Center(
                       child: SizedBox(
                         width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF4A90E2),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100000000.0),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 16.0,
-                              horizontal: 40.0,
-                            ),
-                          ),
-                          child: const Text(
-                            'Getting Started',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+                        child: CustomElevatedButton(
+                            buttonText: 'Getting Started',
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const HomeScreen(),
+                                ),
+                              );
+                            }),
                       ),
                     ),
                   ],
