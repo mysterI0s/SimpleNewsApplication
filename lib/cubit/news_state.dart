@@ -4,7 +4,10 @@ abstract class NewsState {}
 
 class NewsInitialState extends NewsState {}
 
-class NewsLoadingState extends NewsState {}
+class NewsLoadingState extends NewsState {
+  final int loadingButtonIndex;
+  NewsLoadingState(this.loadingButtonIndex);
+}
 
 class NewsSuccessState extends NewsState {
   NewsModel newsModel;
