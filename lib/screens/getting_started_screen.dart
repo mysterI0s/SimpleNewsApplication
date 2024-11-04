@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_project/screens/screens.dart';
 import 'package:new_project/widgets/custom_elevated_button.dart';
+import 'package:new_project/widgets/widgets.dart';
 
 class GettingStartedScreen extends StatelessWidget {
   const GettingStartedScreen({super.key});
@@ -16,19 +17,8 @@ class GettingStartedScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.black.withOpacity(0.6),
-                    Colors.transparent,
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
-              ),
-            ),
+          const Positioned.fill(
+            child: DecorationContainer(),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
