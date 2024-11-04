@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_project/core/date_formatter.dart';
 import 'package:new_project/cubit/cubit.dart';
@@ -40,9 +42,9 @@ class NewsScreen extends StatelessWidget {
 
             return Padding(
               padding: const EdgeInsets.only(
-                bottom: 16.0,
-                left: 16.0,
-                right: 16.0,
+                bottom: 10.0,
+                left: 10.0,
+                right: 10.0,
               ),
               child: Column(
                 children: [
@@ -58,18 +60,21 @@ class NewsScreen extends StatelessWidget {
                                 style: TextStyles.topBarTextStyle,
                               ),
                               const SizedBox(
-                                width: 10,
+                                width: 8,
                               ),
                               Text(
                                 formatDate(news.publishedAt),
                                 style: TextStyles.topBarTextStyle,
                               ),
                               const SizedBox(
-                                width: 10,
+                                width: 8,
                               ),
-                              Text(
-                                news.author,
-                                style: TextStyles.topBarTextStyle,
+                              Flexible(
+                                child: Text(
+                                  news.author,
+                                  style: TextStyles.topBarTextStyle,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ],
                           ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_project/cubit/cubit.dart';
 import 'package:new_project/screens/screens.dart';
 import 'package:new_project/widgets/custom_elevated_button.dart';
+import 'package:new_project/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,20 +19,7 @@ class HomeScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.black.withOpacity(0.3),
-                    Colors.transparent,
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
-              ),
-            ),
-          ),
+          const Positioned.fill(child: DecorationContainer()),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
