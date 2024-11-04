@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_project/cubit/cubit.dart';
 import 'package:new_project/screens/screens.dart';
-import 'package:new_project/widgets/custom_elevated_button.dart';
 import 'package:new_project/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
