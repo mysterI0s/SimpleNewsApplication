@@ -5,6 +5,7 @@ class NewsModel {
   String title;
   String? description;
   String? imageUrl;
+  String? content;
 
   NewsModel({
     required this.source,
@@ -13,11 +14,13 @@ class NewsModel {
     this.description,
     required this.title,
     this.imageUrl,
+    this.content,
   });
 
   factory NewsModel.fromJson(Map<String, dynamic> data, int index) {
     var base = data['articles'][index];
     return NewsModel(
+      content: base['content'] ?? 'This was today\'s news, hope you enjoyed',
       source: base['source']['name'],
       author: base['author'],
       publishedAt: base['publishedAt'],

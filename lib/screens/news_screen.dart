@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_project/core/date_formatter.dart';
+import 'package:new_project/cubit/cubit.dart';
+import 'package:new_project/models/news_model.dart';
+import 'package:new_project/styles/text_styles.dart';
+import 'package:new_project/widgets/widgets.dart';
 
 class NewsScreen extends StatelessWidget {
   const NewsScreen({super.key});
@@ -7,86 +13,103 @@ class NewsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: const [
+          Icon(
+            Icons.share,
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Icon(
+            Icons.save,
+          ),
+          SizedBox(
+            width: 20,
+          ),
+        ],
         backgroundColor: Colors.white,
-        elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 10),
-            const Text(
-              "asd",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            const Row(
-              children: [
-                Text(
-                  "Feb 28, 2023",
-                  style: TextStyle(color: Colors.grey, fontSize: 12),
-                ),
-                SizedBox(width: 10),
-                Text(
-                  "• World",
-                  style: TextStyle(color: Colors.grey, fontSize: 12),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                'assets/images/tornado_damage.jpg',
-                width: double.infinity,
-                height: 200,
-                fit: BoxFit.cover,
+      body: BlocBuilder<NewsCubit, NewsState>(
+        builder: (context, NewsState state) {
+          if (state is NewsSuccessState) {
+            final NewsModel news = state.newsModel;
+
+            return Padding(
+              padding: const EdgeInsets.only(
+                bottom: 16.0,
+                left: 16.0,
+                right: 16.0,
               ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              "Damage of tornadoes",
-              style: TextStyle(color: Colors.grey, fontSize: 12),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              "sad",
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 20),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.favorite_border, color: Colors.grey),
-                    SizedBox(width: 4),
-                    Text("6.7k"),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Icon(Icons.chat_bubble_outline, color: Colors.grey),
-                    SizedBox(width: 4),
-                    Text("12k"),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Icon(Icons.share, color: Colors.grey),
-                    SizedBox(width: 4),
-                    Text("5k"),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                news.source,
+                                style: TextStyles.topBarTextStyle,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                formatDate(news.publishedAt),
+                                style: TextStyles.topBarTextStyle,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                news.author,
+                                style: TextStyles.topBarTextStyle,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            news.title,
+                            style: TextStyles.titleStyle,
+                          ),
+                          const SizedBox(height: 16),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image(
+                              image: NetworkImage(news.imageUrl!),
+                              width: double.infinity,
+                              height: 200,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            news.description!,
+                            style: TextStyles.descriptionStyle,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            news.content!,
+                            style: TextStyles.descriptionStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const CustomBottomRow(),
+                ],
+              ),
+            );
+          } else {
+            return const Center(child: Text("No data available"));
+          }
+        },
       ),
     );
   }
