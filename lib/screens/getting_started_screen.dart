@@ -60,7 +60,7 @@ class GettingStartedScreen extends StatelessWidget {
                         child: CustomElevatedButton(
                             buttonText: 'Getting Started',
                             onPressed: () {
-                              Navigator.of(context).push(
+                              Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
                                   builder: (context) => const HomeScreen(),
                                 ),
