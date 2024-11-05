@@ -17,17 +17,21 @@ class NewsModel {
     this.content,
   });
 
-  factory NewsModel.fromJson(Map<String, dynamic> data, int index) {
-    var base = data['articles'][index];
+  factory NewsModel.fromJson(Map<String, dynamic> data) {
     return NewsModel(
-      content: base['content'] ?? 'This was today\'s news, hope you enjoyed',
-      source: base['source']['name'],
-      author: base['author'],
-      publishedAt: base['publishedAt'],
-      description: base['description'] ?? 'This is really EXCITING NEWS',
-      title: base['title'],
-      imageUrl: base['urlToImage'] ??
+      content: data['content'] ?? 'This was today\'s news, hope you enjoyed',
+      source: data['source']['name'],
+      author: data['author'],
+      publishedAt: data['publishedAt'],
+      description: data['description'] ?? 'This is really EXCITING NEWS',
+      title: data['title'],
+      imageUrl: data['urlToImage'] ??
           'https://media.gettyimages.com/id/1339466666/nl/vector/breaking-news.jpg?s=612x612&w=gi&k=20&c=zFdbjWQZxPDOk0PUKDUDV8roLM31yF0TwUh0R6x_svA=',
     );
+  }
+
+  static List<NewsModel> fromJsonList(Map<String, dynamic> data) {
+    List<dynamic> articles = data['articles'];
+    return articles.map((article) => NewsModel.fromJson(article)).toList();
   }
 }

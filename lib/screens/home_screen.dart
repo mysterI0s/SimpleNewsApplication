@@ -41,37 +41,13 @@ class HomeScreen extends StatelessWidget {
                           width: double.infinity,
                           child: BlocBuilder<NewsCubit, NewsState>(
                             builder: (context, NewsState state) {
-                              if (state is NewsLoadingState &&
-                                  state.loadingButtonIndex == 0) {
+                              if (state is NewsLoadingState) {
                                 return const CircularProgressIndicator();
                               } else {
                                 return CustomElevatedButton(
-                                  buttonText: 'Latest News',
+                                  buttonText: 'Discover What\'s new',
                                   onPressed: () async {
-                                    context.read<NewsCubit>().getNewsData(0);
-                                  },
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Center(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: BlocBuilder<NewsCubit, NewsState>(
-                            builder: (context, NewsState state) {
-                              if (state is NewsLoadingState &&
-                                  state.loadingButtonIndex == 1) {
-                                return const CircularProgressIndicator();
-                              } else {
-                                return CustomElevatedButton(
-                                  buttonText: 'Second to Latest News',
-                                  onPressed: () async {
-                                    context.read<NewsCubit>().getNewsData(1);
+                                    context.read<NewsCubit>().getNewsData();
                                   },
                                 );
                               }
