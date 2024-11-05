@@ -5,13 +5,12 @@ abstract class NewsState {}
 class NewsInitialState extends NewsState {}
 
 class NewsLoadingState extends NewsState {
-  final int loadingButtonIndex;
-  NewsLoadingState(this.loadingButtonIndex);
+  NewsLoadingState();
 }
 
 class NewsSuccessState extends NewsState {
-  NewsModel newsModel;
-  NewsSuccessState(this.newsModel);
+  List<NewsModel> newsList;
+  NewsSuccessState(this.newsList);
 }
 
 class NewsErrorState extends NewsState {
