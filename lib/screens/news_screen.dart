@@ -37,7 +37,6 @@ class NewsScreen extends StatelessWidget {
         builder: (context, NewsState state) {
           if (state is NewsSuccessState) {
             final NewsModel news = state.newsModel;
-
             return Padding(
               padding: const EdgeInsets.only(
                 bottom: 10.0,
