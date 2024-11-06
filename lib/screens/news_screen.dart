@@ -62,7 +62,7 @@ class NewsScreen extends StatelessWidget {
                             const SizedBox(width: 8),
                             Flexible(
                               child: Text(
-                                news.author,
+                                news.author!,
                                 style: TextStyles.topBarTextStyle,
                                 overflow: TextOverflow.ellipsis,
                               ),
