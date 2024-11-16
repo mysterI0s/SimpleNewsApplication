@@ -17,4 +17,10 @@ class TextStyles {
     fontSize: 14,
     color: Colors.grey.shade600,
   );
+  static TextStyle listItemStyle = const TextStyle(
+    fontFamily: 'BonaNovaSC',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
 }
